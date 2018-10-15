@@ -15,7 +15,7 @@ namespace TracNghiemOnline.Models
     public partial class quests_of_test
     {
         public int ID { get; set; }
-        public int id_test { get; set; }
+        public int test_code { get; set; }
         public int id_question { get; set; }
         public Nullable<System.DateTime> timestamps { get; set; }
     

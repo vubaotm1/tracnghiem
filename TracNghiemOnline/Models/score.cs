@@ -16,7 +16,7 @@ namespace TracNghiemOnline.Models
     {
         public int id_score { get; set; }
         public int id_student { get; set; }
-        public int id_test { get; set; }
+        public int test_code { get; set; }
         public double score_detail { get; set; }
         public Nullable<System.DateTime> time_finish { get; set; }
     

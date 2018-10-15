@@ -24,7 +24,7 @@
         <div id="add_normal" class="col s12">
             @using (Html.BeginForm("EditStudent", "Admin", FormMethod.Post))
             {
-                <input type="hidden" id="id_teacher" name="id_student" required value="@student.id_student" class="hidden">
+                <input type="hidden" id="id_student" name="id_student" required value="@student.id_student" class="hidden">
                 <div class="col l6 s12">
                     <div class="input-field">
                         <label for="name">Tên</label>
@@ -97,7 +97,7 @@
                     </div>
                 </div>
                 <div class="col l12">
-                    <button type="submit" class="btn" id="add-student" name="edit-student">Sửa</button>
+                    <button type="submit" class="btn full-width" id="edit-student" name="edit-student">Sửa</button>
                 </div>
             }
         </div>

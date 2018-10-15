@@ -21,15 +21,15 @@ namespace TracNghiemOnline.Models
             this.scores = new HashSet<score>();
         }
     
-        public int id_test { get; set; }
         public string test_name { get; set; }
         public int test_code { get; set; }
         public string password { get; set; }
         public int id_subject { get; set; }
         public int total_questions { get; set; }
         public int time_to_do { get; set; }
+        public string note { get; set; }
         public int id_status { get; set; }
-        public System.DateTime timestamps { get; set; }
+        public Nullable<System.DateTime> timestamps { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<quests_of_test> quests_of_test { get; set; }

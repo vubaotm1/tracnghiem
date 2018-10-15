@@ -109,3 +109,6 @@ a.dropdown-trigger.btn-menu span{
 .modal {
     color: #676a6c !important;
 }
+.full-width {
+    width: 100% !important;
+}

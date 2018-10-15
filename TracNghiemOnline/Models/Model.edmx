@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="admins">
           <Key>
             <PropertyRef Name="id_admin" />
@@ -63,7 +63,7 @@
           <Property Name="answer_b" Type="ntext" Nullable="false" />
           <Property Name="answer_c" Type="ntext" Nullable="false" />
           <Property Name="answer_d" Type="ntext" Nullable="false" />
-          <Property Name="correct_answer" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="correct_answer" Type="ntext" Nullable="false" />
           <Property Name="timestamps" Type="datetime" />
         </EntityType>
         <EntityType Name="quests_of_test">
@@ -71,7 +71,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="id_test" Type="int" Nullable="false" />
+          <Property Name="test_code" Type="int" Nullable="false" />
           <Property Name="id_question" Type="int" Nullable="false" />
           <Property Name="timestamps" Type="datetime" />
         </EntityType>
@@ -81,7 +81,7 @@
           </Key>
           <Property Name="id_score" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="id_student" Type="int" Nullable="false" />
-          <Property Name="id_test" Type="int" Nullable="false" />
+          <Property Name="test_code" Type="int" Nullable="false" />
           <Property Name="score_detail" Type="float" Nullable="false" />
           <Property Name="time_finish" Type="datetime" />
         </EntityType>
@@ -155,17 +155,17 @@
         </EntityType>
         <EntityType Name="tests">
           <Key>
-            <PropertyRef Name="id_test" />
+            <PropertyRef Name="test_code" />
           </Key>
-          <Property Name="id_test" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="test_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="test_name" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="test_code" Type="int" Nullable="false" />
           <Property Name="password" Type="varchar" MaxLength="32" Nullable="false" />
           <Property Name="id_subject" Type="int" Nullable="false" />
           <Property Name="total_questions" Type="int" Nullable="false" />
           <Property Name="time_to_do" Type="int" Nullable="false" />
+          <Property Name="note" Type="ntext" />
           <Property Name="id_status" Type="int" Nullable="false" />
-          <Property Name="timestamps" Type="datetime" Nullable="false" />
+          <Property Name="timestamps" Type="datetime" />
         </EntityType>
         <Association Name="FK__admins__id_permi__46E78A0C">
           <End Role="permissions" Type="Self.permissions" Multiplicity="1" />
@@ -191,30 +191,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__quests_of__id_qu__5DCAEF64">
-          <End Role="questions" Type="Self.questions" Multiplicity="1" />
-          <End Role="quests_of_test" Type="Self.quests_of_test" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="questions">
-              <PropertyRef Name="id_question" />
-            </Principal>
-            <Dependent Role="quests_of_test">
-              <PropertyRef Name="id_question" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__quests_of__id_te__5CD6CB2B">
-          <End Role="tests" Type="Self.tests" Multiplicity="1" />
-          <End Role="quests_of_test" Type="Self.quests_of_test" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tests">
-              <PropertyRef Name="id_test" />
-            </Principal>
-            <Dependent Role="quests_of_test">
-              <PropertyRef Name="id_test" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__scores__id_stude__60A75C0F">
           <End Role="students" Type="Self.students" Multiplicity="1" />
           <End Role="scores" Type="Self.scores" Multiplicity="*" />
@@ -224,18 +200,6 @@
             </Principal>
             <Dependent Role="scores">
               <PropertyRef Name="id_student" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__scores__id_test__619B8048">
-          <End Role="tests" Type="Self.tests" Multiplicity="1" />
-          <End Role="scores" Type="Self.scores" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tests">
-              <PropertyRef Name="id_test" />
-            </Principal>
-            <Dependent Role="scores">
-              <PropertyRef Name="id_test" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -335,6 +299,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_quests_of_test_questions">
+          <End Role="questions" Type="Self.questions" Multiplicity="1" />
+          <End Role="quests_of_test" Type="Self.quests_of_test" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="questions">
+              <PropertyRef Name="id_question" />
+            </Principal>
+            <Dependent Role="quests_of_test">
+              <PropertyRef Name="id_question" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_quests_of_test_tests">
+          <End Role="tests" Type="Self.tests" Multiplicity="1" />
+          <End Role="quests_of_test" Type="Self.quests_of_test" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tests">
+              <PropertyRef Name="test_code" />
+            </Principal>
+            <Dependent Role="quests_of_test">
+              <PropertyRef Name="test_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_scores_tests">
+          <End Role="tests" Type="Self.tests" Multiplicity="1" />
+          <End Role="scores" Type="Self.scores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tests">
+              <PropertyRef Name="test_code" />
+            </Principal>
+            <Dependent Role="scores">
+              <PropertyRef Name="test_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_speciality">
           <End Role="specialities" Type="Self.specialities" Multiplicity="1" />
           <End Role="classes" Type="Self.classes" Multiplicity="*" />
@@ -369,20 +369,8 @@
             <End Role="subjects" EntitySet="subjects" />
             <End Role="questions" EntitySet="questions" />
           </AssociationSet>
-          <AssociationSet Name="FK__quests_of__id_qu__5DCAEF64" Association="Self.FK__quests_of__id_qu__5DCAEF64">
-            <End Role="questions" EntitySet="questions" />
-            <End Role="quests_of_test" EntitySet="quests_of_test" />
-          </AssociationSet>
-          <AssociationSet Name="FK__quests_of__id_te__5CD6CB2B" Association="Self.FK__quests_of__id_te__5CD6CB2B">
-            <End Role="tests" EntitySet="tests" />
-            <End Role="quests_of_test" EntitySet="quests_of_test" />
-          </AssociationSet>
           <AssociationSet Name="FK__scores__id_stude__60A75C0F" Association="Self.FK__scores__id_stude__60A75C0F">
             <End Role="students" EntitySet="students" />
-            <End Role="scores" EntitySet="scores" />
-          </AssociationSet>
-          <AssociationSet Name="FK__scores__id_test__619B8048" Association="Self.FK__scores__id_test__619B8048">
-            <End Role="tests" EntitySet="tests" />
             <End Role="scores" EntitySet="scores" />
           </AssociationSet>
           <AssociationSet Name="FK__students__id_cla__5070F446" Association="Self.FK__students__id_cla__5070F446">
@@ -417,12 +405,25 @@
             <End Role="grades" EntitySet="grades" />
             <End Role="classes" EntitySet="classes" />
           </AssociationSet>
+          <AssociationSet Name="FK_quests_of_test_questions" Association="Self.FK_quests_of_test_questions">
+            <End Role="questions" EntitySet="questions" />
+            <End Role="quests_of_test" EntitySet="quests_of_test" />
+          </AssociationSet>
+          <AssociationSet Name="FK_quests_of_test_tests" Association="Self.FK_quests_of_test_tests">
+            <End Role="tests" EntitySet="tests" />
+            <End Role="quests_of_test" EntitySet="quests_of_test" />
+          </AssociationSet>
+          <AssociationSet Name="FK_scores_tests" Association="Self.FK_scores_tests">
+            <End Role="tests" EntitySet="tests" />
+            <End Role="scores" EntitySet="scores" />
+          </AssociationSet>
           <AssociationSet Name="fk_speciality" Association="Self.fk_speciality">
             <End Role="specialities" EntitySet="specialities" />
             <End Role="classes" EntitySet="classes" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -492,21 +493,21 @@
           <Property Name="answer_b" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="answer_c" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="answer_d" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="correct_answer" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="correct_answer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="timestamps" Type="DateTime" Precision="3" />
           <NavigationProperty Name="subject" Relationship="Self.FK__questions__id_su__5629CD9C" FromRole="questions" ToRole="subjects" />
-          <NavigationProperty Name="quests_of_test" Relationship="Self.FK__quests_of__id_qu__5DCAEF64" FromRole="questions" ToRole="quests_of_test" />
+          <NavigationProperty Name="quests_of_test" Relationship="Self.FK_quests_of_test_questions" FromRole="questions" ToRole="quests_of_test" />
         </EntityType>
         <EntityType Name="quests_of_test">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="id_test" Type="Int32" Nullable="false" />
+          <Property Name="test_code" Type="Int32" Nullable="false" />
           <Property Name="id_question" Type="Int32" Nullable="false" />
           <Property Name="timestamps" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="question" Relationship="Self.FK__quests_of__id_qu__5DCAEF64" FromRole="quests_of_test" ToRole="questions" />
-          <NavigationProperty Name="test" Relationship="Self.FK__quests_of__id_te__5CD6CB2B" FromRole="quests_of_test" ToRole="tests" />
+          <NavigationProperty Name="question" Relationship="Self.FK_quests_of_test_questions" FromRole="quests_of_test" ToRole="questions" />
+          <NavigationProperty Name="test" Relationship="Self.FK_quests_of_test_tests" FromRole="quests_of_test" ToRole="tests" />
         </EntityType>
         <EntityType Name="score">
           <Key>
@@ -514,11 +515,11 @@
           </Key>
           <Property Name="id_score" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="id_student" Type="Int32" Nullable="false" />
-          <Property Name="id_test" Type="Int32" Nullable="false" />
+          <Property Name="test_code" Type="Int32" Nullable="false" />
           <Property Name="score_detail" Type="Double" Nullable="false" />
           <Property Name="time_finish" Type="DateTime" Precision="3" />
           <NavigationProperty Name="student" Relationship="Self.FK__scores__id_stude__60A75C0F" FromRole="scores" ToRole="students" />
-          <NavigationProperty Name="test" Relationship="Self.FK__scores__id_test__619B8048" FromRole="scores" ToRole="tests" />
+          <NavigationProperty Name="test" Relationship="Self.FK_scores_tests" FromRole="scores" ToRole="tests" />
         </EntityType>
         <EntityType Name="speciality">
           <Key>
@@ -602,19 +603,19 @@
         </EntityType>
         <EntityType Name="test">
           <Key>
-            <PropertyRef Name="id_test" />
+            <PropertyRef Name="test_code" />
           </Key>
-          <Property Name="id_test" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="test_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="test_name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="test_code" Type="Int32" Nullable="false" />
           <Property Name="password" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="id_subject" Type="Int32" Nullable="false" />
           <Property Name="total_questions" Type="Int32" Nullable="false" />
           <Property Name="time_to_do" Type="Int32" Nullable="false" />
+          <Property Name="note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="id_status" Type="Int32" Nullable="false" />
-          <Property Name="timestamps" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="quests_of_test" Relationship="Self.FK__quests_of__id_te__5CD6CB2B" FromRole="tests" ToRole="quests_of_test" />
-          <NavigationProperty Name="scores" Relationship="Self.FK__scores__id_test__619B8048" FromRole="tests" ToRole="scores" />
+          <Property Name="timestamps" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="quests_of_test" Relationship="Self.FK_quests_of_test_tests" FromRole="tests" ToRole="quests_of_test" />
+          <NavigationProperty Name="scores" Relationship="Self.FK_scores_tests" FromRole="tests" ToRole="scores" />
           <NavigationProperty Name="status" Relationship="Self.FK__tests__id_status__59FA5E80" FromRole="tests" ToRole="statuses" />
           <NavigationProperty Name="subject" Relationship="Self.FK__tests__id_subjec__59063A47" FromRole="tests" ToRole="subjects" />
         </EntityType>
@@ -702,7 +703,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__quests_of__id_qu__5DCAEF64">
+        <Association Name="FK_quests_of_test_questions">
           <End Role="questions" Type="Self.question" Multiplicity="1" />
           <End Role="quests_of_test" Type="Self.quests_of_test" Multiplicity="*" />
           <ReferentialConstraint>
@@ -714,15 +715,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__quests_of__id_te__5CD6CB2B">
+        <Association Name="FK_quests_of_test_tests">
           <End Role="tests" Type="Self.test" Multiplicity="1" />
           <End Role="quests_of_test" Type="Self.quests_of_test" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tests">
-              <PropertyRef Name="id_test" />
+              <PropertyRef Name="test_code" />
             </Principal>
             <Dependent Role="quests_of_test">
-              <PropertyRef Name="id_test" />
+              <PropertyRef Name="test_code" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -738,15 +739,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__scores__id_test__619B8048">
+        <Association Name="FK_scores_tests">
           <End Role="tests" Type="Self.test" Multiplicity="1" />
           <End Role="scores" Type="Self.score" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tests">
-              <PropertyRef Name="id_test" />
+              <PropertyRef Name="test_code" />
             </Principal>
             <Dependent Role="scores">
-              <PropertyRef Name="id_test" />
+              <PropertyRef Name="test_code" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -840,11 +841,11 @@
             <End Role="subjects" EntitySet="subjects" />
             <End Role="questions" EntitySet="questions" />
           </AssociationSet>
-          <AssociationSet Name="FK__quests_of__id_qu__5DCAEF64" Association="Self.FK__quests_of__id_qu__5DCAEF64">
+          <AssociationSet Name="FK_quests_of_test_questions" Association="Self.FK_quests_of_test_questions">
             <End Role="questions" EntitySet="questions" />
             <End Role="quests_of_test" EntitySet="quests_of_test" />
           </AssociationSet>
-          <AssociationSet Name="FK__quests_of__id_te__5CD6CB2B" Association="Self.FK__quests_of__id_te__5CD6CB2B">
+          <AssociationSet Name="FK_quests_of_test_tests" Association="Self.FK_quests_of_test_tests">
             <End Role="tests" EntitySet="tests" />
             <End Role="quests_of_test" EntitySet="quests_of_test" />
           </AssociationSet>
@@ -852,7 +853,7 @@
             <End Role="students" EntitySet="students" />
             <End Role="scores" EntitySet="scores" />
           </AssociationSet>
-          <AssociationSet Name="FK__scores__id_test__619B8048" Association="Self.FK__scores__id_test__619B8048">
+          <AssociationSet Name="FK_scores_tests" Association="Self.FK_scores_tests">
             <End Role="tests" EntitySet="tests" />
             <End Role="scores" EntitySet="scores" />
           </AssociationSet>
@@ -949,7 +950,7 @@
             <EntityTypeMapping TypeName="Model.quests_of_test">
               <MappingFragment StoreEntitySet="quests_of_test">
                 <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="id_test" ColumnName="id_test" />
+                <ScalarProperty Name="test_code" ColumnName="test_code" />
                 <ScalarProperty Name="id_question" ColumnName="id_question" />
                 <ScalarProperty Name="timestamps" ColumnName="timestamps" />
               </MappingFragment>
@@ -960,7 +961,7 @@
               <MappingFragment StoreEntitySet="scores">
                 <ScalarProperty Name="id_score" ColumnName="id_score" />
                 <ScalarProperty Name="id_student" ColumnName="id_student" />
-                <ScalarProperty Name="id_test" ColumnName="id_test" />
+                <ScalarProperty Name="test_code" ColumnName="test_code" />
                 <ScalarProperty Name="score_detail" ColumnName="score_detail" />
                 <ScalarProperty Name="time_finish" ColumnName="time_finish" />
               </MappingFragment>
@@ -1042,13 +1043,13 @@
           <EntitySetMapping Name="tests">
             <EntityTypeMapping TypeName="Model.test">
               <MappingFragment StoreEntitySet="tests">
-                <ScalarProperty Name="id_test" ColumnName="id_test" />
                 <ScalarProperty Name="test_name" ColumnName="test_name" />
                 <ScalarProperty Name="test_code" ColumnName="test_code" />
                 <ScalarProperty Name="password" ColumnName="password" />
                 <ScalarProperty Name="id_subject" ColumnName="id_subject" />
                 <ScalarProperty Name="total_questions" ColumnName="total_questions" />
                 <ScalarProperty Name="time_to_do" ColumnName="time_to_do" />
+                <ScalarProperty Name="note" ColumnName="note" />
                 <ScalarProperty Name="id_status" ColumnName="id_status" />
                 <ScalarProperty Name="timestamps" ColumnName="timestamps" />
               </MappingFragment>

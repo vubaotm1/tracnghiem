@@ -7,17 +7,14 @@ namespace TracNghiemOnline.Common
 {
     public static class UserSession
     {
-        public static void AddSession(string sessionName, object obj)
-        {
-            HttpContext.Current.Session.Add(sessionName, obj);
-        }
-        public static object GetSession(string sessionName)
-        {
-            return HttpContext.Current.Session[sessionName];
-        }
-        public static void RemoveSession(string sessionName)
-        {
-            HttpContext.Current.Session.Remove(sessionName);
-        }
+        public static string ISLOGIN = "ISLOGIN";
+        public static string ID = "ID";
+        public static string PERMISSION = "PERMISSION";
+        public static string USERNAME = "USERNAME";
+        public static string EMAIL = "EMAIL";
+        public static string AVATAR = "AVATAR";
+        public static string NAME = "NAME";
+        public static string TESTCODE = "TESTCODE";
+        public static string TIME = "TIME";
     }
 }

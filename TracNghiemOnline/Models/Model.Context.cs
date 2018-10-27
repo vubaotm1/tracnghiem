@@ -38,5 +38,6 @@ namespace TracNghiemOnline.Models
         public virtual DbSet<subject> subjects { get; set; }
         public virtual DbSet<teacher> teachers { get; set; }
         public virtual DbSet<test> tests { get; set; }
+        public virtual DbSet<student_test_detail> student_test_detail { get; set; }
     }
 }

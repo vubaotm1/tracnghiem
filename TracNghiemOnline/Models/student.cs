@@ -18,6 +18,7 @@ namespace TracNghiemOnline.Models
         public student()
         {
             this.scores = new HashSet<score>();
+            this.student_test_detail = new HashSet<student_test_detail>();
         }
     
         public int id_student { get; set; }
@@ -45,5 +46,7 @@ namespace TracNghiemOnline.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<score> scores { get; set; }
         public virtual speciality speciality { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<student_test_detail> student_test_detail { get; set; }
     }
 }

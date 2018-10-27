@@ -12,16 +12,20 @@ namespace TracNghiemOnline.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class score
+    public partial class student_test_detail
     {
-        public int id_score { get; set; }
+        public int ID { get; set; }
         public int id_student { get; set; }
+        public int id_question { get; set; }
+        public string answer_a { get; set; }
+        public string answer_b { get; set; }
+        public string answer_c { get; set; }
+        public string answer_d { get; set; }
+        public string student_answer { get; set; }
+        public Nullable<System.DateTime> timestamps { get; set; }
         public int test_code { get; set; }
-        public Nullable<System.DateTime> time_finish { get; set; }
-        public double score_number { get; set; }
-        public string detail { get; set; }
     
+        public virtual question question { get; set; }
         public virtual student student { get; set; }
-        public virtual test test { get; set; }
     }
 }

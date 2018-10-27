@@ -6,16 +6,18 @@ using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using TracNghiemOnline.Models;
+using TracNghiemOnline.Common;
 namespace TracNghiemOnline.Controllers
 {
     public class AdminController : Controller
     {
+        User user = new User();
         // GET: Admin
-        AdminModel Model = new AdminModel();
+        AdminDA Model = new AdminDA();
 
         public ActionResult Index()
         {
-            if (!Common.UserInfomation.IsAdmin())
+            if (!user.IsAdmin())
                 return View("Error");
             Model.UpdateLastLogin();
             Model.UpdateLastSeen("Trang Chủ", Url.Action("Index"));
@@ -24,14 +26,14 @@ namespace TracNghiemOnline.Controllers
         }
         public ActionResult Logout()
         {
-            if (!Common.UserInfomation.IsAdmin())
+            if (!user.IsAdmin())
                 return View("Error");
-            Common.UserInfomation.Reset();
+            user.Reset();
             return RedirectToAction("Index", "Login");
         }
         public ActionResult AdminManager()
         {
-            if (!Common.UserInfomation.IsAdmin())
+            if (!user.IsAdmin())
                 return View("Error");
             Model.UpdateLastSeen("Quản Lý Admin", Url.Action("AdminManager"));
             return View(Model.GetAdmins());
@@ -39,7 +41,7 @@ namespace TracNghiemOnline.Controllers
         [HttpPost]
         public ActionResult AddAdmin(FormCollection form)
         {
-            if (!Common.UserInfomation.IsAdmin())
+            if (!user.IsAdmin())
                 return View("Error");
             Model.UpdateLastSeen("Thêm Admin", Url.Action("AddAdmin"));
             string name = form["name"];
@@ -63,7 +65,7 @@ namespace TracNghiemOnline.Controllers
         }
         public ActionResult DeleteAdmin(string id)
         {
-            if (!Common.UserInfomation.IsAdmin())
+            if (!user.IsAdmin())
                 return View("Error");
             Model.UpdateLastSeen("Xóa Admin", Url.Action("DeleteAdmin"));
             int id_admin = Convert.ToInt32(id);
@@ -83,7 +85,7 @@ namespace TracNghiemOnline.Controllers
         [HttpPost]
         public ActionResult DeleteAdmin(FormCollection form)
         {
-            if (!Common.UserInfomation.IsAdmin())
+            if (!user.IsAdmin())
                 return View("Error");
             Model.UpdateLastSeen("Xóa Admin", Url.Action("DeleteAdmin"));
             string[] ids = Regex.Split(form["checkbox"], ",");
@@ -107,7 +109,7 @@ namespace TracNghiemOnline.Controllers
         }
         public ActionResult EditAdmin(string id)
         {
-            if (!Common.UserInfomation.IsAdmin())
+            if (!user.IsAdmin())
                 return View("Error");
             int id_admin = Convert.ToInt32(id);
             try
@@ -123,7 +125,7 @@ namespace TracNghiemOnline.Controllers
         [HttpPost]
         public ActionResult EditAdmin(FormCollection form)
         {
-            if (!Common.UserInfomation.IsAdmin())
+            if (!user.IsAdmin())
                 return View("Error");
             int id_admin = Convert.ToInt32(form["id_admin"]);
             string name = form["name"];
@@ -147,7 +149,7 @@ namespace TracNghiemOnline.Controllers
         }
         public ActionResult TeacherManager()
         {
-            if (!Common.UserInfomation.IsAdmin())
+            if (!user.IsAdmin())
                 return View("Error");
             Model.UpdateLastSeen("Quản Lý Giáo Viên", Url.Action("TeacherManager"));
             ViewBag.ListSpecialities = Model.GetSpecialities();
@@ -156,7 +158,7 @@ namespace TracNghiemOnline.Controllers
         [HttpPost]
         public ActionResult AddTeacher(FormCollection form)
         {
-            if (!Common.UserInfomation.IsAdmin())
+            if (!user.IsAdmin())
                 return View("Error");
             Model.UpdateLastSeen("Thêm Giảng Viên", Url.Action("AddTeacher"));
             string name = form["name"];
@@ -181,7 +183,7 @@ namespace TracNghiemOnline.Controllers
         }
         public ActionResult DeleteTeacher(string id)
         {
-            if (!Common.UserInfomation.IsAdmin())
+            if (!user.IsAdmin())
                 return View("Error");
             Model.UpdateLastSeen("Xóa Giảng Viên", Url.Action("DeleteTeacher"));
             int id_teacher = Convert.ToInt32(id);
@@ -201,7 +203,7 @@ namespace TracNghiemOnline.Controllers
         [HttpPost]
         public ActionResult DeleteTeacher(FormCollection form)
         {
-            if (!Common.UserInfomation.IsAdmin())
+            if (!user.IsAdmin())
                 return View("Error");
             Model.UpdateLastSeen("Xóa Giảng Viên", Url.Action("DeleteTeacher"));
             string[] ids = Regex.Split(form["checkbox"], ",");
@@ -225,7 +227,7 @@ namespace TracNghiemOnline.Controllers
         }
         public ActionResult EditTeacher(string id)
         {
-            if (!Common.UserInfomation.IsAdmin())
+            if (!user.IsAdmin())
                 return View("Error");
             int id_teacher = Convert.ToInt32(id);
             try
@@ -243,7 +245,7 @@ namespace TracNghiemOnline.Controllers
         [HttpPost]
         public ActionResult EditTeacher(FormCollection form)
         {
-            if (!Common.UserInfomation.IsAdmin())
+            if (!user.IsAdmin())
                 return View("Error");
             int id_teacher = Convert.ToInt32(form["id_teacher"]);
             string name = form["name"];
@@ -268,7 +270,7 @@ namespace TracNghiemOnline.Controllers
         }
         public ActionResult StudentManager()
         {
-            if (!Common.UserInfomation.IsAdmin())
+            if (!user.IsAdmin())
                 return View("Error");
             Model.UpdateLastSeen("Quản Lý Sinh Viên", Url.Action("StudentManager"));
             ViewBag.ListSpecialities = Model.GetSpecialities();
@@ -278,7 +280,7 @@ namespace TracNghiemOnline.Controllers
         [HttpPost]
         public ActionResult AddStudent(FormCollection form)
         {
-            if (!Common.UserInfomation.IsAdmin())
+            if (!user.IsAdmin())
                 return View("Error");
             Model.UpdateLastSeen("Thêm Sinh Viên", Url.Action("AddStudent"));
             string name = form["name"];
@@ -304,7 +306,7 @@ namespace TracNghiemOnline.Controllers
         }
         public ActionResult DeleteStudent(string id)
         {
-            if (!Common.UserInfomation.IsAdmin())
+            if (!user.IsAdmin())
                 return View("Error");
             Model.UpdateLastSeen("Xóa Sinh Viên", Url.Action("DeleteStudent"));
             int id_student = Convert.ToInt32(id);
@@ -324,7 +326,7 @@ namespace TracNghiemOnline.Controllers
         [HttpPost]
         public ActionResult DeleteStudent(FormCollection form)
         {
-            if (!Common.UserInfomation.IsAdmin())
+            if (!user.IsAdmin())
                 return View("Error");
             Model.UpdateLastSeen("Xóa Sinh Viên", Url.Action("DeleteStudent"));
             string[] ids = Regex.Split(form["checkbox"], ",");
@@ -348,7 +350,7 @@ namespace TracNghiemOnline.Controllers
         }
         public ActionResult EditStudent(string id)
         {
-            if (!Common.UserInfomation.IsAdmin())
+            if (!user.IsAdmin())
                 return View("Error");
             int id_student = Convert.ToInt32(id);
             try
@@ -367,7 +369,7 @@ namespace TracNghiemOnline.Controllers
         [HttpPost]
         public ActionResult EditStudent(FormCollection form)
         {
-            if (!Common.UserInfomation.IsAdmin())
+            if (!user.IsAdmin())
                 return View("Error");
             int id_student = Convert.ToInt32(form["id_student"]);
             string name = form["name"];
@@ -393,7 +395,7 @@ namespace TracNghiemOnline.Controllers
         }
         public ActionResult ClassManager()
         {
-            if (!Common.UserInfomation.IsAdmin())
+            if (!user.IsAdmin())
                 return View("Error");
             Model.UpdateLastSeen("Quản Lý Khóa/Lớp", Url.Action("ClassManager"));
             ViewBag.ListSpecialities = Model.GetSpecialities();
@@ -403,7 +405,7 @@ namespace TracNghiemOnline.Controllers
         [HttpPost]
         public ActionResult AddGrade(FormCollection form)
         {
-            if (!Common.UserInfomation.IsAdmin())
+            if (!user.IsAdmin())
                 return View("Error");
             Model.UpdateLastSeen("Thêm Khóa", Url.Action("AddGrade"));
             string grade_name = form["grade_name"];
@@ -423,7 +425,7 @@ namespace TracNghiemOnline.Controllers
         [HttpPost]
         public ActionResult AddClass(FormCollection form)
         {
-            if (!Common.UserInfomation.IsAdmin())
+            if (!user.IsAdmin())
                 return View("Error");
             Model.UpdateLastSeen("Thêm Khóa", Url.Action("AddGrade"));
             string class_name = form["class_name"];
@@ -444,7 +446,7 @@ namespace TracNghiemOnline.Controllers
         }
         public ActionResult DeleteClass(string id)
         {
-            if (!Common.UserInfomation.IsAdmin())
+            if (!user.IsAdmin())
                 return View("Error");
             Model.UpdateLastSeen("Xóa Lớp", Url.Action("DeleteClass"));
             int id_class = Convert.ToInt32(id);
@@ -464,7 +466,7 @@ namespace TracNghiemOnline.Controllers
         [HttpPost]
         public ActionResult DeleteClass(FormCollection form)
         {
-            if (!Common.UserInfomation.IsAdmin())
+            if (!user.IsAdmin())
                 return View("Error");
             Model.UpdateLastSeen("Xóa Lớp", Url.Action("DeleteClass"));
             string[] ids = Regex.Split(form["checkbox"], ",");
@@ -488,7 +490,7 @@ namespace TracNghiemOnline.Controllers
         }
         public ActionResult EditClass(string id)
         {
-            if (!Common.UserInfomation.IsAdmin())
+            if (!user.IsAdmin())
                 return View("Error");
             int id_class = Convert.ToInt32(id);
             try
@@ -507,7 +509,7 @@ namespace TracNghiemOnline.Controllers
         [HttpPost]
         public ActionResult EditClass(FormCollection form)
         {
-            if (!Common.UserInfomation.IsAdmin())
+            if (!user.IsAdmin())
                 return View("Error");
             int id_class = Convert.ToInt32(form["id_class"]);
             string class_name = form["class_name"];
@@ -528,7 +530,7 @@ namespace TracNghiemOnline.Controllers
         }
         public ActionResult SpecialityManager()
         {
-            if (!Common.UserInfomation.IsAdmin())
+            if (!user.IsAdmin())
                 return View("Error");
             Model.UpdateLastSeen("Quản Lý Ngành", Url.Action("SpecialityManager"));
             return View(Model.GetSpecialities());
@@ -536,7 +538,7 @@ namespace TracNghiemOnline.Controllers
         [HttpPost]
         public ActionResult AddSpeciality(FormCollection form)
         {
-            if (!Common.UserInfomation.IsAdmin())
+            if (!user.IsAdmin())
                 return View("Error");
             Model.UpdateLastSeen("Thêm Ngành", Url.Action("AddSpeciality"));
             string speciality_name = form["speciality_name"];
@@ -555,7 +557,7 @@ namespace TracNghiemOnline.Controllers
         }
         public ActionResult DeleteSpeciality(string id)
         {
-            if (!Common.UserInfomation.IsAdmin())
+            if (!user.IsAdmin())
                 return View("Error");
             Model.UpdateLastSeen("Xóa Ngành", Url.Action("DeleteSpeciality"));
             int id_speciality = Convert.ToInt32(id);
@@ -575,7 +577,7 @@ namespace TracNghiemOnline.Controllers
         [HttpPost]
         public ActionResult DeleteSpeciality(FormCollection form)
         {
-            if (!Common.UserInfomation.IsAdmin())
+            if (!user.IsAdmin())
                 return View("Error");
             Model.UpdateLastSeen("Xóa Ngành", Url.Action("DeleteSpeciality"));
             string[] ids = Regex.Split(form["checkbox"], ",");
@@ -599,7 +601,7 @@ namespace TracNghiemOnline.Controllers
         }
         public ActionResult EditSpeciality(string id)
         {
-            if (!Common.UserInfomation.IsAdmin())
+            if (!user.IsAdmin())
                 return View("Error");
             int id_speciality = Convert.ToInt32(id);
             try
@@ -616,7 +618,7 @@ namespace TracNghiemOnline.Controllers
         [HttpPost]
         public ActionResult EditSpeciality(FormCollection form)
         {
-            if (!Common.UserInfomation.IsAdmin())
+            if (!user.IsAdmin())
                 return View("Error");
             int id_speciality = Convert.ToInt32(form["id_speciality"]);
             string speciality_name = form["speciality_name"];
@@ -635,7 +637,7 @@ namespace TracNghiemOnline.Controllers
         }
         public ActionResult SubjectManager()
         {
-            if (!Common.UserInfomation.IsAdmin())
+            if (!user.IsAdmin())
                 return View("Error");
             Model.UpdateLastSeen("Quản Lý Môn", Url.Action("SubjectManager"));
             return View(Model.GetSubjects());
@@ -643,7 +645,7 @@ namespace TracNghiemOnline.Controllers
         [HttpPost]
         public ActionResult AddSubject(FormCollection form)
         {
-            if (!Common.UserInfomation.IsAdmin())
+            if (!user.IsAdmin())
                 return View("Error");
             Model.UpdateLastSeen("Thêm Môn", Url.Action("AddSubject"));
             string subject_name = form["subject_name"];
@@ -662,7 +664,7 @@ namespace TracNghiemOnline.Controllers
         }
         public ActionResult DeleteSubject(string id)
         {
-            if (!Common.UserInfomation.IsAdmin())
+            if (!user.IsAdmin())
                 return View("Error");
             Model.UpdateLastSeen("Xóa Môn", Url.Action("DeleteSubject"));
             int id_subject = Convert.ToInt32(id);
@@ -682,7 +684,7 @@ namespace TracNghiemOnline.Controllers
         [HttpPost]
         public ActionResult DeleteSubject(FormCollection form)
         {
-            if (!Common.UserInfomation.IsAdmin())
+            if (!user.IsAdmin())
                 return View("Error");
             Model.UpdateLastSeen("Xóa Môn", Url.Action("DeleteSubject"));
             string[] ids = Regex.Split(form["checkbox"], ",");
@@ -706,7 +708,7 @@ namespace TracNghiemOnline.Controllers
         }
         public ActionResult EditSubject(string id)
         {
-            if (!Common.UserInfomation.IsAdmin())
+            if (!user.IsAdmin())
                 return View("Error");
             int id_subject = Convert.ToInt32(id);
             try
@@ -723,7 +725,7 @@ namespace TracNghiemOnline.Controllers
         [HttpPost]
         public ActionResult EditSubject(FormCollection form)
         {
-            if (!Common.UserInfomation.IsAdmin())
+            if (!user.IsAdmin())
                 return View("Error");
             int id_subject = Convert.ToInt32(form["id_subject"]);
             string subject_name = form["subject_name"];
@@ -742,7 +744,7 @@ namespace TracNghiemOnline.Controllers
         }
         public ActionResult QuestionManager()
         {
-            if (!Common.UserInfomation.IsAdmin())
+            if (!user.IsAdmin())
                 return View("Error");
             Model.UpdateLastSeen("Quản Lý Câu Hỏi", Url.Action("QuestionManager"));
             ViewBag.ListSubject = Model.GetSubjects();
@@ -751,7 +753,7 @@ namespace TracNghiemOnline.Controllers
         [HttpPost]
         public ActionResult AddQuestion(FormCollection form, HttpPostedFileBase File)
         {
-            if (!Common.UserInfomation.IsAdmin())
+            if (!user.IsAdmin())
                 return View("Error");
             Model.UpdateLastSeen("Thêm Câu Hỏi", Url.Action("AddQuestion"));
             int id_subject = Convert.ToInt32(form["id_subject"]);
@@ -811,7 +813,7 @@ namespace TracNghiemOnline.Controllers
         }
         public ActionResult DeleteQuestion(string id)
         {
-            if (!Common.UserInfomation.IsAdmin())
+            if (!user.IsAdmin())
                 return View("Error");
             Model.UpdateLastSeen("Xóa Câu Hỏi", Url.Action("DeleteQuestion"));
             int id_question = Convert.ToInt32(id);
@@ -831,7 +833,7 @@ namespace TracNghiemOnline.Controllers
         [HttpPost]
         public ActionResult DeleteQuestion(FormCollection form)
         {
-            if (!Common.UserInfomation.IsAdmin())
+            if (!user.IsAdmin())
                 return View("Error");
             Model.UpdateLastSeen("Xóa Câu Hỏi", Url.Action("DeleteQuestion"));
             string[] ids = Regex.Split(form["checkbox"], ",");
@@ -855,7 +857,7 @@ namespace TracNghiemOnline.Controllers
         }
         public ActionResult EditQuestion(string id)
         {
-            if (!Common.UserInfomation.IsAdmin())
+            if (!user.IsAdmin())
                 return View("Error");
             int id_question = Convert.ToInt32(id);
             try
@@ -873,7 +875,7 @@ namespace TracNghiemOnline.Controllers
         [HttpPost]
         public ActionResult EditQuestion(FormCollection form, HttpPostedFileBase File)
         {
-            if (!Common.UserInfomation.IsAdmin())
+            if (!user.IsAdmin())
                 return View("Error");
             int id_question = Convert.ToInt32(form["id_question"]);
             int id_subject = Convert.ToInt32(form["id_subject"]);
@@ -935,7 +937,7 @@ namespace TracNghiemOnline.Controllers
         }
         public ActionResult TestManager()
         {
-            if (!Common.UserInfomation.IsAdmin())
+            if (!user.IsAdmin())
                 return View("Error");
             Model.UpdateLastSeen("Quản Lý Bài Thi", Url.Action("TestManager"));
             ViewBag.ListSubject = Model.GetSubjects();
@@ -947,7 +949,7 @@ namespace TracNghiemOnline.Controllers
         }
         public ActionResult AddTest(FormCollection form)
         {
-            if (!Common.UserInfomation.IsAdmin())
+            if (!user.IsAdmin())
                 return View("Error");
             Model.UpdateLastSeen("Thêm Đề Thi", Url.Action("AddTest"));
             //tạo đề thi
@@ -988,7 +990,7 @@ namespace TracNghiemOnline.Controllers
         }
         public ActionResult EditTest(string id)
         {
-            if (!Common.UserInfomation.IsAdmin())
+            if (!user.IsAdmin())
                 return View("Error");
             int test_code = Convert.ToInt32(id);
             try
@@ -1005,7 +1007,7 @@ namespace TracNghiemOnline.Controllers
         [HttpPost]
         public ActionResult EditTest(FormCollection form)
         {
-            if (!Common.UserInfomation.IsAdmin())
+            if (!user.IsAdmin())
                 return View("Error");
             int test_code = Convert.ToInt32(form["test_code"]);
             string test_name = form["test_name"];
@@ -1032,7 +1034,7 @@ namespace TracNghiemOnline.Controllers
         }
         public ActionResult ToggleStatus(int id)
         {
-            if (!Common.UserInfomation.IsAdmin())
+            if (!user.IsAdmin())
                 return View("Error");
             int id_test = Convert.ToInt32(id);
             bool toggle = Model.ToggleStatus(id_test);
@@ -1045,7 +1047,7 @@ namespace TracNghiemOnline.Controllers
         }
         public ActionResult TestDetail(string id)
         {
-            if (!Common.UserInfomation.IsAdmin())
+            if (!user.IsAdmin())
                 return View("Error");
             int test_code = Convert.ToInt32(id);
             try

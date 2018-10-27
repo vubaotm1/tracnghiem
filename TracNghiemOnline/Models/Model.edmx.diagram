@@ -33,6 +33,9 @@
         <AssociationConnector Association="Model.FK__teachers__id_spe__4BAC3F29" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK__tests__id_status__59FA5E80" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK__tests__id_subjec__59063A47" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Model.student_test_detail" Width="1.5" PointX="8.25" PointY="8" />
+        <AssociationConnector Association="Model.FK__student_t__id_qu__42ACE4D4" />
+        <AssociationConnector Association="Model.FK__student_t__id_st__41B8C09B" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

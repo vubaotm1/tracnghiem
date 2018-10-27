@@ -2,22 +2,23 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-
+using TracNghiemOnline.Common;
 namespace TracNghiemOnline.Models
 {
-    public class AdminModel
+    public class AdminDA
     {
+        User user = new User();
         trac_nghiem_onlineEntities db = new trac_nghiem_onlineEntities();
 
         public void UpdateLastLogin()
         {
-            var update = (from x in db.admins where x.id_admin == Common.UserInfomation.id_user select x).Single();
+            var update = (from x in db.admins where x.id_admin == user.ID select x).Single();
             update.last_login = DateTime.Now;
             db.SaveChanges();
         }
         public void UpdateLastSeen(string name,string url)
         {
-            var update = (from x in db.admins where x.id_admin == Common.UserInfomation.id_user select x).Single();
+            var update = (from x in db.admins where x.id_admin == user.ID select x).Single();
             update.last_seen = name;
             update.last_seen_url = url;
             db.SaveChanges();

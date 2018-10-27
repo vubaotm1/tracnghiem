@@ -46,67 +46,37 @@ namespace TracNghiemOnline.Models
         public void SetAdminSession(int userID)
         {
             admin user = db.admins.SingleOrDefault(x => x.id_admin == userID);
-            Common.UserInfomation.IsLogin = true;
-            Common.UserInfomation.id_user = user.id_admin;
-            Common.UserInfomation.username = user.username;
-            Common.UserInfomation.email = user.email;
-            Common.UserInfomation.avatar = user.avatar;
-            Common.UserInfomation.name = user.name;
-            Common.UserInfomation.gender = user.gender;
-            Common.UserInfomation.birthday = user.birthday;
-            Common.UserInfomation.phone = user.phone;
-            Common.UserInfomation.id_permission = user.id_permission;
-            Common.UserInfomation.last_login = user.last_login;
-            Common.UserInfomation.last_seen = user.last_seen;
-            Common.UserInfomation.last_seen_url = user.last_seen_url;
-            Common.UserInfomation.timestamps = user.timestamps;
-            //Common.UserSession.AddSession("Permission", admin.id_permission);
-            //Common.UserSession.AddSession("User", user);
+            HttpContext.Current.Session.Add(Common.UserSession.ISLOGIN, true);
+            HttpContext.Current.Session.Add(Common.UserSession.ID, user.id_admin);
+            HttpContext.Current.Session.Add(Common.UserSession.PERMISSION, user.id_permission);
+            HttpContext.Current.Session.Add(Common.UserSession.USERNAME, user.username);
+            HttpContext.Current.Session.Add(Common.UserSession.EMAIL, user.email);
+            HttpContext.Current.Session.Add(Common.UserSession.AVATAR, user.avatar);
+            HttpContext.Current.Session.Add(Common.UserSession.NAME, user.name);
         }
         public void SetTeacherSession(int userID)
         {
             teacher user = db.teachers.SingleOrDefault(x => x.id_teacher == userID);
-            Common.UserInfomation.IsLogin = true;
-            Common.UserInfomation.id_user = user.id_teacher;
-            Common.UserInfomation.username = user.username;
-            Common.UserInfomation.email = user.email;
-            Common.UserInfomation.avatar = user.avatar;
-            Common.UserInfomation.name = user.name;
-            Common.UserInfomation.gender = user.gender;
-            Common.UserInfomation.birthday = user.birthday;
-            Common.UserInfomation.phone = user.phone;
-            Common.UserInfomation.id_permission = user.id_permission;
-            Common.UserInfomation.id_speciality = user.id_speciality;
-            Common.UserInfomation.last_login = user.last_login;
-            Common.UserInfomation.last_seen = user.last_seen;
-            Common.UserInfomation.last_seen_url = user.last_seen_url;
-            Common.UserInfomation.timestamps = user.timestamps;
-            //Common.UserSession.AddSession("Permission", teacher.id_permission);
-            //Common.UserSession.AddSession("User", user);
+            HttpContext.Current.Session.Add(Common.UserSession.ISLOGIN, true);
+            HttpContext.Current.Session.Add(Common.UserSession.ID, user.id_teacher);
+            HttpContext.Current.Session.Add(Common.UserSession.PERMISSION, user.id_permission);
+            HttpContext.Current.Session.Add(Common.UserSession.USERNAME, user.username);
+            HttpContext.Current.Session.Add(Common.UserSession.EMAIL, user.email);
+            HttpContext.Current.Session.Add(Common.UserSession.AVATAR, user.avatar);
+            HttpContext.Current.Session.Add(Common.UserSession.NAME, user.name);
         }
         public void SetStudentSession(int userID)
         {
             student user = db.students.SingleOrDefault(x => x.id_student == userID);
-            Common.UserInfomation.IsLogin = true;
-            Common.UserInfomation.id_user = user.id_student;
-            Common.UserInfomation.username = user.username;
-            Common.UserInfomation.email = user.email;
-            Common.UserInfomation.avatar = user.avatar;
-            Common.UserInfomation.name = user.name;
-            Common.UserInfomation.gender = user.gender;
-            Common.UserInfomation.birthday = user.birthday;
-            Common.UserInfomation.phone = user.phone;
-            Common.UserInfomation.id_permission = user.id_permission;
-            Common.UserInfomation.id_speciality = user.id_speciality;
-            Common.UserInfomation.is_testing = user.is_testing;
-            Common.UserInfomation.time_start = user.time_start;
-            Common.UserInfomation.time_remaining = user.time_remaining;
-            Common.UserInfomation.last_login = user.last_login;
-            Common.UserInfomation.last_seen = user.last_seen;
-            Common.UserInfomation.last_seen_url = user.last_seen_url;
-            Common.UserInfomation.timestamps = user.timestamps;
-            //Common.UserSession.AddSession("Permission", student.id_permission);
-            //Common.UserSession.AddSession("User", user);
+            HttpContext.Current.Session.Add(Common.UserSession.ISLOGIN, true);
+            HttpContext.Current.Session.Add(Common.UserSession.ID, user.id_student);
+            HttpContext.Current.Session.Add(Common.UserSession.PERMISSION, user.id_permission);
+            HttpContext.Current.Session.Add(Common.UserSession.USERNAME, user.username);
+            HttpContext.Current.Session.Add(Common.UserSession.EMAIL, user.email);
+            HttpContext.Current.Session.Add(Common.UserSession.AVATAR, user.avatar);
+            HttpContext.Current.Session.Add(Common.UserSession.NAME, user.name);
+            HttpContext.Current.Session.Add(Common.UserSession.TESTCODE, user.is_testing);
+            HttpContext.Current.Session.Add(Common.UserSession.TIME, user.time_remaining);
         }
     }
 }

@@ -157,7 +157,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Common\Encryptor.cs" />
     <Compile Include="Common\ShuffleArray.cs" />
-    <Compile Include="Common\UserInfomation.cs" />
+    <Compile Include="Common\User.cs" />
     <Compile Include="Common\UserSession.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -169,7 +169,7 @@
     <Compile Include="Models\admin.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\AdminModel.cs" />
+    <Compile Include="Models\AdminDA.cs" />
     <Compile Include="Models\class.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -217,7 +217,12 @@
     <Compile Include="Models\student.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\StudentDA.cs" />
+    <Compile Include="Models\StudentQuestViewModel.cs" />
     <Compile Include="Models\StudentViewModel.cs" />
+    <Compile Include="Models\student_test_detail.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\subject.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -312,7 +317,6 @@
     </Content>
     <None Include="packages.config" />
     <Content Include="Views\Teacher\Index.cshtml" />
-    <Content Include="Views\Student\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Admin\AdminManager.cshtml" />
@@ -332,6 +336,9 @@
     <Content Include="Views\Admin\EditQuestion.cshtml" />
     <Content Include="Views\Admin\EditTest.cshtml" />
     <Content Include="Views\Admin\TestDetail.cshtml" />
+    <Content Include="Views\Student\Index.cshtml" />
+    <Content Include="Views\Student\DoingTest.cshtml" />
+    <Content Include="Views\Student\PreviewTest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

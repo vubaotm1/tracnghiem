@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using TracNghiemOnline.Common;
 namespace TracNghiemOnline.Controllers
 {
     public class TeacherController : Controller
     {
+        User user = new User();
         // GET: Teacher
         public ActionResult Index()
         {
-            if (!Common.UserInfomation.IsLogin)
+            if (!user.IsLogin())
                 return RedirectToAction("Index", "Login");
             return View();
         }
@@ -19,7 +20,7 @@ namespace TracNghiemOnline.Controllers
         {
             //Common.UserSession.RemoveSession("User");
             //Common.UserSession.RemoveSession("Permission");
-            Common.UserInfomation.Reset();
+            user.Reset();
             return RedirectToAction("Index", "Login");
         }
     }

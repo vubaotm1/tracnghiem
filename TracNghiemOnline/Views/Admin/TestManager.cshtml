@@ -135,17 +135,19 @@
                 list.append(item);
             } else {
                 for (i = 0; i < result.length; i++) {
-                    var item = '<div class="input-field"><label for="unit-' + result[i].Unit + '">Nhập số câu hỏi chương ' + result[i].Unit + ' (có ' + result[i].Total + ' câu) <span class="failed">(*)</span></label><input type="number" class="unit_input" onchange="set_sum()"  name="unit-' + result[i].Unit + '" id="unit-' + result[i].Unit + '" required></div>';
+                    var item = '<div class="input-field"><label for="unit-' + result[i].Unit + '">Nhập số câu hỏi chương ' + result[i].Unit + ' (có ' + result[i].Total + ' câu) <span class="failed">(*)</span></label><input type="number" max="' + result[i].Total + '" class="unit_input" onchange="set_sum(' + result[i].Total + ')"  name="unit-' + result[i].Unit + '" id="unit-' + result[i].Unit + '" required></div>';
                     list.append(item);
                 }
             }
         };
         $.get(url, success);
     }
-    function set_sum() {
+    function set_sum(total) {
         var sum = 0;
         $('.unit_input').each(function () {
-            if (this.value != "")
+            if (parseInt(this.value) > parseInt(this.getAttribute("max")))
+                alert("Nhập quá số câu hỏi đang có, vui lòng kiểm tra lại");
+            else if (this.value != "")
                 sum += parseInt(this.value);
         });
         $('#total_question').val(sum);

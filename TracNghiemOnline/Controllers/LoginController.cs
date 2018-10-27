@@ -4,21 +4,22 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TracNghiemOnline.Models;
-
+using TracNghiemOnline.Common;
 namespace TracNghiemOnline.Controllers
 {
     public class LoginController : Controller
     {
+        User user;
         // GET: Login
         public ActionResult Index()
         {
-            if (Common.UserInfomation.IsLogin)
+            if (Session[UserSession.ISLOGIN] != null && (bool)Session[UserSession.ISLOGIN])
             {
-                if (Common.UserInfomation.id_permission == 1)
+                if ((int)Session[UserSession.PERMISSION] == 1)
                     return RedirectToAction("Index", "Admin");
-                if (Common.UserInfomation.id_permission == 2)
+                if ((int)Session[UserSession.PERMISSION] == 2)
                     return RedirectToAction("Index", "Teacher");
-                if (Common.UserInfomation.id_permission == 3)
+                if ((int)Session[UserSession.PERMISSION] == 3)
                     return RedirectToAction("Index", "Student");
             }
             return View();
@@ -30,11 +31,12 @@ namespace TracNghiemOnline.Controllers
             {
                 if (model.IsValid(model))
                 {
-                    if (Common.UserInfomation.id_permission == 1)
+                    user = new User();
+                    if (user.IsAdmin())
                         return RedirectToAction("Index", "Admin");
-                    if (Common.UserInfomation.id_permission == 2)
+                    if (user.IsTeacher())
                         return RedirectToAction("Index", "Teacher");
-                    if (Common.UserInfomation.id_permission == 3)
+                    if (user.IsStudent())
                         return RedirectToAction("Index", "Student");
                 }
                 else

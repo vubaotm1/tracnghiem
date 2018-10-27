@@ -229,6 +229,7 @@
     <Compile Include="Models\teacher.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TeacherDA.cs" />
     <Compile Include="Models\TeacherViewModel.cs" />
     <Compile Include="Models\test.cs">
       <DependentUpon>Model.tt</DependentUpon>
@@ -339,6 +340,7 @@
     <Content Include="Views\Student\Index.cshtml" />
     <Content Include="Views\Student\DoingTest.cshtml" />
     <Content Include="Views\Student\PreviewTest.cshtml" />
+    <Content Include="Views\Teacher\Preview.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

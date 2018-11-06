@@ -10,7 +10,7 @@
     <span id="timer" class="timer timer-fixed">@ViewBag.min : @ViewBag.sec</span>
 </div>
 <div class="content row col s12 reset-margin" style="padding:0;">
-    <div class="testing-left">
+    <div class="testing-left scrollbar">
         @{
             int i = 1;
             foreach (var item in list)
@@ -151,6 +151,7 @@
         })
     })
     $(window).scroll(function () {
+        $('#footer').css("display", "none");
         if (window.pageYOffset > 30) {
             $('.testing-left').css("top", "65px").css("height", "calc(100% - 65px)");
             $('#timer').css("margin-top", "0px");
@@ -158,9 +159,6 @@
         if (window.pageYOffset < 30) {
             $('.testing-left').css("top", "95px").css("height", "calc(100% - 95px)");
             $('#timer').css("margin-top", "30px");
-        }
-        if (window.pageYOffset >= 13110) {
-            $('.testing-left').css("top", "65px").css("height", "calc(100% - 95px)");
         }
     });
     //jQuery for Page Scroll - Single page      

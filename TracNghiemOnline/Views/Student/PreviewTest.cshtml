@@ -37,7 +37,7 @@
                             }
                             else
                             {
-                                if (item.student_test.student_answer.Trim().Equals(item.student_test.answer_a.Trim()) && !item.student_test.student_answer.Trim().Equals(item.question.correct_answer.Trim()))
+                                if (item.student_test.student_answer != null && item.student_test.student_answer.Trim().Equals(item.student_test.answer_a.Trim()) && !item.student_test.student_answer.Trim().Equals(item.question.correct_answer.Trim()))
                                 {
                                     <input name="@item.question.id_question" type="radio" checked disabled />
                                     <span style="color:red">@item.student_test.answer_a</span>
@@ -67,7 +67,7 @@
                             }
                             else
                             {
-                                if (item.student_test.student_answer.Trim().Equals(item.student_test.answer_b.Trim()) && !item.student_test.student_answer.Trim().Equals(item.question.correct_answer.Trim()))
+                                if (item.student_test.student_answer != null && item.student_test.student_answer.Trim().Equals(item.student_test.answer_b.Trim()) && !item.student_test.student_answer.Trim().Equals(item.question.correct_answer.Trim()))
                                 {
                                     <input name="@item.question.id_question" type="radio" checked disabled />
                                     <span style="color:red">@item.student_test.answer_b</span>
@@ -97,7 +97,7 @@
                             }
                             else
                             {
-                                if (item.student_test.student_answer.Trim().Equals(item.student_test.answer_c.Trim()) && !item.student_test.student_answer.Trim().Equals(item.question.correct_answer.Trim()))
+                                if (item.student_test.student_answer != null && item.student_test.student_answer.Trim().Equals(item.student_test.answer_c.Trim()) && !item.student_test.student_answer.Trim().Equals(item.question.correct_answer.Trim()))
                                 {
                                     <input name="@item.question.id_question" type="radio" checked disabled />
                                     <span style="color:red">@item.student_test.answer_c</span>
@@ -127,7 +127,7 @@
                             }
                             else
                             {
-                                if (item.student_test.student_answer.Trim().Equals(item.student_test.answer_d.Trim()) && !item.student_test.student_answer.Trim().Equals(item.question.correct_answer.Trim()))
+                                if (item.student_test.student_answer != null && item.student_test.student_answer.Trim().Equals(item.student_test.answer_d.Trim()) && !item.student_test.student_answer.Trim().Equals(item.question.correct_answer.Trim()))
                                 {
                                     <input name="@item.question.id_question" type="radio" checked disabled />
                                     <span style="color:red">@item.student_test.answer_d</span>

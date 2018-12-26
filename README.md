@@ -4,6 +4,16 @@ Mục tiêu: Xây dựng hệ thống trắc nghiệm online cho các trường 
 Khác với "Hệ Thống Trắc Nghiệm Online" [TẠI ĐÂY](https://github.com/meesudzu/trac-nghiem-online).<br />
 Hệ thống này tập chung chức năng sử dụng cho môi trường Đại học, Cao dẳng, Trung cấp và được viết bằng ASP.NET MVC 5.<br />
 Sử dụng được cho tất cả các môn học có hình thức kiểm tra/thi trắc nghiệm, với dạng bài trắc nghiệm chọn 1 đúng trong 4 đáp án.
+
+## Bản Quyền
+
+Toàn bộ dự án và các gói liên quan thuộc bản quyền tác giả:  
+Nông Văn Du  
+Email: dzu6996@gmail.com  
+Dự án được phát triển và phát hành với mục đích phi thương mại.  
+Bản quyền cấp bởi [MIT Licensed](LICENSE)  
+Mọi đóng góp xin liên hệ tác giả.
+
 ## Tính Năng
 Sinh Viên:
 

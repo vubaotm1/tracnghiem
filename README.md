@@ -7,10 +7,9 @@ Sử dụng được cho tất cả các môn học có hình thức kiểm tra/
 
 ## Bản Quyền
 
-Toàn bộ dự án và các gói liên quan thuộc bản quyền tác giả:  
 Nông Văn Du  
 Email: dzu6996@gmail.com  
-Dự án được phát triển và phát hành với mục đích phi thương mại.  
+Dự án được phát triển và phát hành với mục đích phi lợi nhuận.  
 Bản quyền cấp bởi [MIT Licensed](LICENSE)  
 Mọi đóng góp xin liên hệ tác giả.
 
